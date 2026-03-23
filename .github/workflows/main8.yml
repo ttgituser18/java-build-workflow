@@ -1,0 +1,27 @@
+name: Java Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  compile-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven # Caches dependencies for faster builds
+
+      - name: Compile and run with Maven
+        run: |
+          mvn clean compile
+          # You would typically run tests here: mvn test
+          # To run a specific class, you might need a different approach or an exec plugin
